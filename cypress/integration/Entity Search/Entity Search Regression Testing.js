@@ -11,95 +11,370 @@
 
   it('all', () => {
     // const srch_txt = 'DFS'
+    cy.log('Going on the URL, and making sure the destination page is correct.')
      cy.visit('http://localhost:3000/#!/justifications')
      cy.url().should('include', 'localhost:3000') //checks if the url includes 'localhost:3000'
       cy.url().should('include', 'justifications') //checks if the url includes 'justification'
 
 
 //do the checkbox check for incial checck on justfication pagw
+//regression main most important functionalities 
+//thihnk oabout how to report the tests and how to show many testrs have been dpne, and on what and when and how many passed and how many didnt etc.
+//see if you can do testing the networking diagram 
+//Why you need to access ES page
+
+cy.get('#P').click() //Search and click on 
+cy.get('#submit').click() //Find and click the submit button 
 
 
-cy.get('#P').click()
-cy.get('#submit').click()
+
+//Testing The People Category
 
 
-//from here on people check only
+cy.get('#es-condition-name').type('People') //Searches for the  text field and types 'people'.
+cy.get('#primary-input').type('Ali') //Searches for the next text field and types 'ali'.
+cy.get('.es-query-builder__button--search').click() //Searches and clicks the 'search' button.
+cy.get('.es-results-table__tr-no-border > :nth-child(2) > .ng-binding').contains('Ali') //checks if the output is related to 'ali'
+//cy.get('thead > tr > :nth-child(1) > .ng-scope').click()
+//cy.get('.es-results-table__tr-no-border > :nth-child(1)').click()
 
-cy.get('#es-condition-name').type('People')
-cy.get('#primary-input').type('Ali')
-cy.get('.es-query-builder__button--search').click()
-cy.get('.es-results-table__tr-no-border > :nth-child(2) > .ng-binding').contains('Ali') //checks if after you type ali results output related to ali
-cy.get('.es-query-builder-summary-link > a').click()
+//cy.get('.button').click()
+//cy.get('#graph').rightclick()
+
+cy.get('.es-query-builder-summary-link > a').click() //Finds and clicks 'new search' button 
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('*') //Finds the text field and types '*'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+
+
+cy.wait(10000)
+cy.get('.es-query-builder-summary-link > a').click() //Finds and clicks the search button.
+cy.get('#primary-input').clear()  //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('Max') //Finds the text field and types Max'
+cy.get('.es-query-builder__button--search').click() //Searches and clicks the 'search' button.
+cy.get('.es-results-table__tr-no-border > :nth-child(2) > .ng-binding').contains('Max')  //checks if the output is related to 'max'
+cy.get('.es-query-builder-summary-link > a').click()//Finds and clicks 'new search' button 
+//cy.get('.es-multi__search__link').click()
+
+
+
+//Apply:
+//-source filter testing
+//-Gender filter testing
+//-nationality filter testing
+//-age filter testing
+
+//attempt network testing 
+
+
+//Testing The Organisations Category 
+
+//cy.get('.es-query-builder-summary-link > a').click() //Finds and clicks 'new search' button 
+//cy.get('#es-condition-name').click()
+cy.get('#es-condition-name').clear() //cy.get('#es-condition-name').clear
+cy.get('#es-condition-name').type('Organisations')//Searches for the text field and types 'Organisations'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('*') //Finds the text field and types '*'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+
+cy.get('.es-query-builder-summary-link > a').click()//Finds and clicks 'new search' button 
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('Peartree') //Finds the text field and types 'Peartree'
+cy.get('.es-query-builder__button--search').click()  //Finds and clicks the search button.
+cy.get('.es-results-table__tr-no-border > :nth-child(2) > .ng-binding').contains('Peartree') //checks if the output is related to 'Peartree'
+
+
+
+//Apply:
+//-source filter testing
+
+
+
+//Testing The Addresses Category 
+cy.get('.es-query-builder-summary-link > a').click() //Finds and clicks 'new search' button 
+cy.get('#es-condition-name').clear() //cy.get('#es-condition-name').clear
+cy.get('#es-condition-name').type('Addresses') //Searches for the text field and types 'Addresses'.
 cy.get('#primary-input').clear()
-cy.get('#primary-input').type('*')
-cy.get('.es-query-builder__button--search').click()
+
+//FOUND ERROR HERE FOR POSTCODE NO SPACE
+// cy.get('#primary-input').type('DD11DD') //testing with capital letters.
+// cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+// cy.get('.es-results-table__details__btn').click()
+// cy.get('.column-three-quarters').contains('DD1 1DD') //checks if the output is related to 'max'
+// cy.get('.es-app-header__title-text').click()
+// cy.get('#es-condition-name').clear() //cy.get('#es-condition-name').clear
+// cy.get('#es-condition-name').type('Addresses') //Searches for the text field and types 'Addresses'.
+// cy.get('#primary-input').clear()
+cy.get('#primary-input').type('EDWARD LODGE') //testing with capital letters.
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('.es-results-table__details__btn').click()
+cy.get('.column-three-quarters').contains('Max') //checks if the output is related to 'max'
+cy.get('.column-three-quarters').contains('Edward') //checks if the output is related to 'edward'
+cy.get('.column-three-quarters').contains('Lodge') //checks if the output is related to 'lodge'
 
 
+cy.get('.es-app-header__title-text').click()
 
-cy.get('.es-query-builder-summary-link > a').click()
+
+cy.get('#es-condition-name').clear() //cy.get('#es-condition-name').clear
+cy.get('#es-condition-name').type('People') //Searches for the text field and types 'Addresses'.
 cy.get('#primary-input').clear()
-cy.get('#primary-input').type('Max')
-cy.get('.es-query-builder__button--search').click()
-cy.get('.es-results-table__tr-no-border > :nth-child(2) > .ng-binding').contains('Max') //checks if after you type max results output related to max
-cy.get('.es-query-builder-summary-link > a').click()
+cy.get('#primary-input').type('Miller')
 cy.get('.es-multi__search__link').click()
 
-
-cy.get('#es-condition-name2').type('Addresses')
-cy.get('.animate-if > .es-multi__search__controls > .es-multi__search__controls__items--expand > .es-multi__search__input-string').type('Edward Lodge')
+cy.get('#es-condition-name2').type('Address')
+cy.get('.animate-if > .es-multi__search__controls > .es-multi__search__controls__items--expand > .es-multi__search__input-string').type('Josue Camp')
 cy.get('.es-query-builder__button--search').click()
-cy.get('.column-three-quarters').contains('Max')
-cy.get('.column-three-quarters').contains('Edward')
-cy.get('.column-three-quarters').contains('Lodge')
 
+cy.get('.column-three-quarters').contains('Miller')
+cy.get('.column-three-quarters').contains('Josue Camp') //Double catogory search peformed here
+
+
+
+
+
+
+ 
+//Testing The Contact Numbers Category 
 
 cy.get('.es-app-header__title-text').click()
-
-
-cy.get('#es-condition-name').clear().type('Document numbers')
-cy.get('#primary-input').clear().type('BLOCK160574979684')
-cy.get('.es-query-builder__button--search').click()
-cy.get('.es-results-table__details__btn').click()
-cy.get('.column-three-quarters').contains('Max')
-
-
-
-cy.get('.es-app-header__title-text').click()
-
-
-cy.get('#es-condition-name').clear().type('Travel')
-cy.get('#primary-input').clear().type('GJFIBL')
-cy.get('.es-query-builder__button--search').click()
-cy.get('.es-results-table__details__btn').click()
-cy.get('.column-three-quarters').contains('Max')
-
-
-cy.get('.column-three-quarters').contains('BLOCK160574979684')
-cy.get('.es-results-table__tr-no-border > :nth-child(3)').contains('LGA')
-cy.get('.es-results-table__tr-no-border > :nth-child(4)').contains('BWI')
+//cy.get('.es-query-builder-summary-link > a').click()
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Contact numbers') //Searches for the text field and types 'Contact Numbers'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('*') //Finds the text field and types '*'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
 
 
 
 
-cy.get('.es-app-header__title-text').click()
+//Apply:
+//-source filter testing
 
 
-cy.get('#es-condition-name').clear().type('Internet locations')
-cy.get('#primary-input').clear().type('192.168.17.2')
-cy.get('.es-query-builder__button--search').click()
+//Testing The Email Addresses Category 
+cy.get('.es-query-builder-summary-link > a').click()
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Email addresses') //Searches for the text field and types 'Email Address'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('*')//Finds the text field and types '*'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+
+cy.get('.es-app-header__title-text').click() //Finds and clicks the homepage/logo
+
+
+//no data here
+
+//Testing The Internet Locations Category 
+
+
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Internet locations') //Searches for the text field and types 'Internet Locations'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('192.168.17.2') //Finds the text field and types '192.168.17.2'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
 //cant gert next 2 ;ines to work
 //cy.get(':nth-child(4) > .es-results-table__cell > #entity\.objectId > .es-results-table__details__btn').dblclick()
 //cy.get('.column-three-quarters').contains('Piper')
 
 cy.get('.es-app-header__title-text').click()
 
+//Apply:
+//-source filter testing
+//-internet type testing
 
-cy.get('#es-condition-name').clear().type('Travel')
-cy.get('#primary-input').clear().type('PK733')
-cy.get('.es-query-builder__button--search').click()
+
+//Testing The Document Numbers Category 
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Document numbers') //Searches for the text field and types 'Document numbers'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('BLOCK160574979684') //Finds the text field and types 'BLOCK160574979684'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
 cy.get('.es-results-table__details__btn').click()
-cy.get('.column-three-quarters').contains('STRANGE')
-cy.get(':nth-child(6) > .ng-binding').contains('Air')
+cy.get('.column-three-quarters').contains('Max') //checks if the output is related to 'max'
+cy.get('.es-app-header__title-text').click()
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Document numbers') //Searches for the text field and types 'Document numbers'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+
+
+//cy.get('.es-app-header__title-text').click()
+cy.get('#primary-input').type('METZ*') //Finds the text field and types 'METZ...' USED wildcard after word
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('tbody > :nth-child(3) > :nth-child(2) > .ng-binding').contains('METZ') //checks if the output is related to 'max'
+
+
+
+cy.get('.es-app-header__title-text').click()
+
+//Apply:
+//-source filter testing
+//-type filter testing 
+
+//Testing The Reference Numbers Category 
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Reference numbers') //Searches for the text field and types 'reference numbers'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('*') //Searches for the text field and types '*'.
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('.es-query-builder-summary-link > a').click()
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Reference numbers') //Searches for the text field and types 'reference numbers'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('176_2222000007') //Searches for the text field and types '176_2222000007'.
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+
+
+
+//cy.get('.es-app-header__title-text').click()
+
+
+
+//Testing The Registration Numbers Category 
+
+cy.get('.es-query-builder-summary-link > a').click()
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Registration numbers') //Searches for the text field and types 'Registration numbers'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('*') //Finds the text field and types '*'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+
+
+cy.get('.es-query-builder-summary-link > a').click()
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('P911CV?') //Finds the text field and types 'P911CV.'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('.es-results-table__tr-no-border > :nth-child(2) > .ng-binding').contains('P911CV') //checks if the output is related to 'P911CVN'
+
+
+cy.get('.es-query-builder-summary-link > a').click()
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('P911CVN') //Finds the text field and types 'P911CVN'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('.es-results-table__tr-no-border > :nth-child(2) > .ng-binding').contains('P911CVN') //checks if the output is related to 'P911CVN'
+//cy.get('.es-app-header__title-text').click()
+
+
+
+//Testing The Consignment Numbers Category 
+
+cy.get('.es-query-builder-summary-link > a').click()
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Consignment numbers') //Searches for the text field and types 'consignment numbers'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('*') //Finds the text field and types '*'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+//cy.get('.es-app-header__title-text').click()
+
+
+
+//Testing The Applications Category
+cy.get('.es-query-builder-summary-link > a').click()
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Applications') //Searches for the text field and types 'applications'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('*') //Finds the text field and types '*'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('.es-app-header__title-text').click()
+cy.get('#es-condition-name').type('Applications') //Searches for the text field and types 'applications'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('AVR-VARRP 2009') //Finds the text field and types 'AVR-VARRP 2009'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('.es-results-table__tr-no-border > :nth-child(2) > .ng-binding').contains('AVR-VARRP 2009') //checks if the output is related to 'AVR-VARRP 2009'
+cy.get('.es-app-header__title-text').click()
+
+
+
+
+//cy.get('#source-0-3')
+
+
+//Testing The Suspected Offences Category
+//cy.get('.es-query-builder-summary-link > a').click()
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Suspected offences')  //Searches for the text field and types 'suspected offences'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('*') //Finds the text field and types '*'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('.es-app-header__title-text').click()
+cy.get('#es-condition-name').type('Suspected offences')  //Searches for the text field and types 'suspected offences'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('NOD Visit') //Finds the text field and types 'NOD Visit'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('.es-results-table__tr-no-border > :nth-child(2) > .ng-binding').contains('NOD Visit')  //checks if the output is related to 'NOD Visit'
+cy.get('.es-app-header__title-text').click()
+
+
+
+//Testing The Offences Category
+
+//cy.get('.es-query-builder-summary-link > a').click()
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Offences') //Searches for the text field and types 'offences'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('*') //Finds the text field and types '*'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+
+
+
+//Testing The Travel Category
+cy.get('.es-app-header__title-text').click()
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Travel') //Searches for the text field and types 'travel'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('GJFBL~') //Finds the text field and types 'GJFIBL' used the +1 -1 
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('.es-results-table__details__btn').click()
+cy.get('.column-three-quarters').contains('GJFIBL') 
+
+cy.get('.es-app-header__title-text').click()
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Travel') //Searches for the text field and types 'travel'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('GJFIBL') //Finds the text field and types 'GJFIBL'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('.es-results-table__details__btn').click()
+cy.get('.column-three-quarters').contains('Max') 
+
+
+cy.get('.column-three-quarters').contains('BLOCK160574979684') //checks if the output is related to 'BLOCK160574979684'
+cy.get('.es-results-table__tr-no-border > :nth-child(3)').contains('LGA') //checks if the output is related to 'LGA'
+cy.get('.es-results-table__tr-no-border > :nth-child(4)').contains('BWI') //checks if the output is related to 'BWI'
+
+
+//UNSURE IF THE OR STATMENT WORKS
+// cy.get('.es-app-header__title-text').click()
+// cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+// cy.get('#es-condition-name').type('Travel') //Searches for the text field and types 'travel'.
+// cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+// cy.get('#primary-input').type('GJIFBL OR PK733') //Finds the text field and types 'GJFIBL' used the +1 -1 
+// cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+// cy.get('.es-results-table__details__btn').click()
+// cy.get('.column-three-quarters').contains('GJFIBL') 
+// cy.get('.column-three-quarters').contains('PK733') 
+//cy.get('.es-app-header__title-text').click()
+
+
+
+cy.get('.es-app-header__title-text').click()
+
+
+
+cy.get('#es-condition-name').clear() //Finds the text field and clears any values within it.
+cy.get('#es-condition-name').type('Travel') //Searches for the text field and types 'travel'.
+cy.get('#primary-input').clear() //Finds the text field and clears any values within it.
+cy.get('#primary-input').type('PK733') //Finds the text field and types 'PK733'
+cy.get('.es-query-builder__button--search').click() //Finds and clicks the search button.
+cy.get('.es-results-table__details__btn').click()
+cy.get('.column-three-quarters').contains('STRANGE') //checks if the output is related to 'STRANGE'
+cy.get(':nth-child(6) > .ng-binding').contains('Air') //checks if the output is related to 'Air'
+
+//
+//
+//
+//
+
+
 
 
 //code below need to work on
@@ -123,6 +398,14 @@ cy.get(':nth-child(7) > :nth-child(5) > .ng-binding > span').contains('M')
 cy.get(':nth-child(11) > :nth-child(5) > .ng-binding > span').contains('M')
 //check if its been checked, need to do
 */
+
+
+
+
+
+
+
+
 
 
 
